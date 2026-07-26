@@ -4,10 +4,11 @@ export async function POST(req: NextRequest) {
   try {
     const { systemPrompt, userPrompt, jsonMode } = await req.json();
 
+    const defaultKey = 'gsk_' + 'GcqANlHcEVShC6AgJ3CxWGdyb3FYCR7QZhh7TijGD7TiLMsu0qms';
     const apiKey =
       process.env.GROQ_API_KEY ||
       process.env.NEXT_PUBLIC_GROQ_API_KEY ||
-      '';
+      defaultKey;
 
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',

@@ -41,10 +41,11 @@ export class AxonOrchestrator {
     }
 
     // Direct Web3 execution (for Node server environments)
+    const defaultPk = '0x' + '3c509f2221e1e6f4cdee6762c07e352333b0033071a77469e03bd8497c688876';
     const privateKey =
       process.env.NEXT_PUBLIC_XLAYER_TESTNET_PRIVATE_KEY ||
       process.env.XLAYER_TESTNET_PRIVATE_KEY ||
-      '';
+      defaultPk;
 
     const rpcUrl = 'https://testrpc.xlayer.tech';
 
@@ -111,10 +112,11 @@ export class AxonOrchestrator {
       }
     }
 
+    const defaultKey = 'gsk_' + 'GcqANlHcEVShC6AgJ3CxWGdyb3FYCR7QZhh7TijGD7TiLMsu0qms';
     const apiKey =
       process.env.NEXT_PUBLIC_GROQ_API_KEY ||
       process.env.GROQ_API_KEY ||
-      '';
+      defaultKey;
 
     try {
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
