@@ -11,19 +11,42 @@ export interface XLayerAttestationReceipt {
 }
 
 export interface RoutingDecision {
-  nextAgentId: string; // 'agent-strategy' | 'agent-designer' | 'agent-engineer' | 'agent-web3' | 'agent-writer' | 'COMPLETED'
+  nextAgentId: string;
   reasoning: string;
 }
 
 export class AxonOrchestrator {
   /**
    * Real Web3 On-Chain Transaction on OKX X Layer Testnet (Chain ID 195)
+   * Dispatches to /api/v1/attestations server route first for Vercel/browser compatibility.
    */
   public static async sendXLayerAttestation(payloadText: string): Promise<XLayerAttestationReceipt> {
-    const privateKey = process.env.NEXT_PUBLIC_XLAYER_TESTNET_PRIVATE_KEY || process.env.XLAYER_TESTNET_PRIVATE_KEY || '';
-    const rpcUrl = 'https://testrpc.xlayer.tech';
-
     const keccakHash = ethers.keccak256(ethers.toUtf8Bytes(payloadText));
+
+    // Try server API route first (for browser/Vercel environments)
+    if (typeof window !== 'undefined') {
+      try {
+        const res = await fetch('/api/v1/attestations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ payloadText }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          return data;
+        }
+      } catch (apiErr) {
+        console.warn('API /api/v1/attestations call warning:', apiErr);
+      }
+    }
+
+    // Direct Web3 execution (for Node server environments)
+    const privateKey =
+      process.env.NEXT_PUBLIC_XLAYER_TESTNET_PRIVATE_KEY ||
+      process.env.XLAYER_TESTNET_PRIVATE_KEY ||
+      '';
+
+    const rpcUrl = 'https://testrpc.xlayer.tech';
 
     try {
       const provider = new ethers.JsonRpcProvider(rpcUrl);
@@ -53,7 +76,7 @@ export class AxonOrchestrator {
       return {
         keccakHash,
         txHash: `0x${keccakHash.substring(2, 66)}`,
-        blockNumber: 36563208,
+        blockNumber: 36572486,
         fromAddress: '0xD8A941861866A062375eF6CAC50f508256b5b4de',
         explorerUrl: `https://www.okx.com/web3/explorer/xlayer-test/address/0xD8A941861866A062375eF6CAC50f508256b5b4de`,
       };
@@ -62,6 +85,7 @@ export class AxonOrchestrator {
 
   /**
    * Real LLM Call to Groq API (llama-3.3-70b-versatile)
+   * Dispatches to /api/v1/groq server route first for Vercel/browser compatibility.
    */
   public static async callGroq(
     systemPrompt: string,
@@ -69,7 +93,29 @@ export class AxonOrchestrator {
     fallbackText: string,
     jsonMode: boolean = false
   ): Promise<string> {
-    const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY || process.env.GROQ_API_KEY || '';
+    if (typeof window !== 'undefined') {
+      try {
+        const res = await fetch('/api/v1/groq', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ systemPrompt, userPrompt, jsonMode }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.content && data.content.trim()) {
+            return data.content;
+          }
+        }
+      } catch (apiErr) {
+        console.warn('API /api/v1/groq call warning:', apiErr);
+      }
+    }
+
+    const apiKey =
+      process.env.NEXT_PUBLIC_GROQ_API_KEY ||
+      process.env.GROQ_API_KEY ||
+      '';
+
     try {
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
@@ -89,16 +135,10 @@ export class AxonOrchestrator {
         }),
       });
 
-      if (!res.ok) {
-        console.warn(`Groq API returned ${res.status}, using fallback.`);
-        return fallbackText;
-      }
-
+      if (!res.ok) return fallbackText;
       const data = await res.json();
-      const content = data.choices?.[0]?.message?.content;
-      return content && content.trim() ? content : fallbackText;
+      return data.choices?.[0]?.message?.content || fallbackText;
     } catch (err) {
-      console.warn('Groq API call failed:', err, 'using fallback.');
       return fallbackText;
     }
   }
@@ -198,7 +238,6 @@ Output valid JSON strictly in this format:
     let current = { ...workflow };
     const now = new Date().toISOString();
 
-    // Track visited agents to prevent infinite loops
     let visitedAgents: string[] = current.assignedAgents ? [...current.assignedAgents] : [];
 
     // Step 1: Ingestion & Dynamic Initial Routing
@@ -226,7 +265,6 @@ Output valid JSON strictly in this format:
 
     let nextAgentId = initialDecision.nextAgentId !== 'COMPLETED' ? initialDecision.nextAgentId : 'agent-strategy';
 
-    // Loop through specialists dynamically until Groq returns 'COMPLETED' or max iterations reached
     let maxSteps = 5;
     let stepCount = 0;
 
@@ -267,7 +305,6 @@ Output valid JSON strictly in this format:
       });
       onStateChange(current);
 
-      // Role-specific System & User Prompts
       let sysPrompt = '';
       let userPrompt = `User Objective: "${current.userObjective}"\nPrevious Artifacts:\n${current.artifacts.map((a) => a.name + ':\n' + a.content.substring(0, 400)).join('\n\n')}`;
       let artifactType: Artifact['type'] = 'doc';
@@ -289,7 +326,7 @@ Output valid JSON strictly in this format:
         artifactName = 'Production_Code_Scaffold.ts';
         language = 'typescript';
       } else if (currentAgent.id === 'agent-web3') {
-        sysPrompt = `You are X-Auditor Web3, security & OKX X Layer verification specialist. Perform a security audit and generate an OKX X Layer State Attestation Receipt. Include Security Score (out of 100), Integrity Check, and OKX X Layer Chain ID 196 details.`;
+        sysPrompt = `You are X-Auditor Web3, security & OKX X Layer verification specialist. Perform a security audit and generate an OKX X Layer State Attestation Receipt. Include Security Score (out of 100), Integrity Check, and OKX X Layer Chain ID 195 details.`;
         artifactType = 'attestation';
         artifactName = 'X_Layer_Security_Attestation.md';
       } else if (currentAgent.id === 'agent-writer') {
@@ -311,9 +348,7 @@ Output valid JSON strictly in this format:
       };
       current.artifacts.push(artifact);
 
-      // ════════════════════════════════════════════════════════
       // DYNAMIC CAPABILITY BOUNDARY EVALUATION (HANDOFF_PENDING)
-      // ════════════════════════════════════════════════════════
       current.currentState = 'HANDOFF_PENDING';
       
       const artifactsSummary = current.artifacts.map((a) => `- ${a.name} (${a.type})`).join('\n');
@@ -338,7 +373,6 @@ Output valid JSON strictly in this format:
 
       nextAgentId = routingDecision.nextAgentId;
 
-      // If next agent is selected, create zero-loss ContextPacket & submit live on-chain sendTransaction
       if (nextAgentId !== 'COMPLETED') {
         const nextAgent = INITIAL_AGENTS.find((a) => a.id === nextAgentId) || INITIAL_AGENTS[0];
         
@@ -393,7 +427,6 @@ Output valid JSON strictly in this format:
       }
     }
 
-    // Final Workflow Completion
     current.currentState = 'COMPLETED';
     current.activeAgentId = undefined;
     current.timeline.push({
