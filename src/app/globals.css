@@ -8,11 +8,23 @@
   --font-outfit: 'Outfit', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
 body {
   background-color: #06020a;
   color: #f8fafc;
   font-family: var(--font-outfit), sans-serif;
   overflow-x: hidden;
+}
+
+/* GPU-accelerated animation hints for all motion elements */
+[style*="transform"], [style*="opacity"], [style*="filter"] {
+  will-change: transform, opacity, filter;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 ::selection {

@@ -43,10 +43,10 @@ export const ArchitectureSection: React.FC = () => {
             {STATES.map((state, idx) => (
               <React.Fragment key={state.name}>
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  initial={{ opacity: 0, scale: 0.9, filter: 'blur(3px)' }}
+                  whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.45, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
                   className="flex flex-col items-center gap-3 w-32"
                 >
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center border shadow-glowSm

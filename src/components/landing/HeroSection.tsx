@@ -14,9 +14,9 @@ export const HeroSection: React.FC = () => {
       {/* Top Floating Badge */}
       <div className="flex justify-center mb-6">
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-axon-violet-900/60 border border-axon-violet-400/30 text-xs font-mono text-axon-violet-300 shadow-glowSm"
         >
           <span className="w-2 h-2 rounded-full bg-axon-magenta animate-pulse" />
@@ -34,9 +34,9 @@ export const HeroSection: React.FC = () => {
         />
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="mt-6 text-base md:text-xl text-slate-400 max-w-2xl mx-auto font-sans leading-relaxed"
         >
           Axon orchestrates specialist AI agents with structured Context Packets. When work is transferred,
@@ -46,9 +46,9 @@ export const HeroSection: React.FC = () => {
 
       {/* Hero Action Buttons */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
+        transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
         className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
       >
         <Link
@@ -70,9 +70,9 @@ export const HeroSection: React.FC = () => {
 
       {/* Hero Canvas Showcase (Custos Magnetic Arrow Follow Visualizer) */}
       <motion.div
-        initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+        initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-        transition={{ duration: 1, delay: 0.7 }}
+        transition={{ duration: 0.7, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className="relative max-w-5xl mx-auto"
       >
         <div className="absolute -inset-1 bg-gradient-to-r from-axon-violet-600 via-axon-magenta to-axon-violet-900 rounded-3xl blur-xl opacity-40 animate-pulseSlow" />

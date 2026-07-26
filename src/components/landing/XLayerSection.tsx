@@ -15,10 +15,10 @@ export const XLayerSection: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+            initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="text-xs font-mono font-bold uppercase text-emerald-400 tracking-wider px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 inline-block mb-4 flex items-center gap-2 w-max">
               <CustomIcon name="ShieldCheck" size={14} color="#10b981" />
@@ -60,10 +60,10 @@ export const XLayerSection: React.FC = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+            initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="p-1 rounded-2xl bg-gradient-to-b from-axon-violet-500/20 to-transparent"
           >
             <div className="p-6 rounded-xl bg-axon-bg/90 border border-axon-border/80 font-mono text-xs shadow-2xl relative overflow-hidden">

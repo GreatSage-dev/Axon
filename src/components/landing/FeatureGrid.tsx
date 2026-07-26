@@ -77,12 +77,12 @@ export const FeatureGrid: React.FC = () => {
         {FEATURES.map((feat, idx) => (
           <motion.div
             key={feat.title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6, delay: idx * 0.08 }}
-            whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="edge-glow p-6 rounded-2xl bg-axon-card/90 border border-axon-border hover:border-axon-violet-500/50 hover:shadow-glow backdrop-blur-xl transition-all flex flex-col justify-between"
+            initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ y: -5, scale: 1.01, transition: { type: 'spring', mass: 0.4, stiffness: 150, damping: 14 } }}
+            className="edge-glow p-6 rounded-2xl bg-axon-card/90 border border-axon-border hover:border-axon-violet-500/50 hover:shadow-glow backdrop-blur-xl transition-colors duration-300 flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-4">

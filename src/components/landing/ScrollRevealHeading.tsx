@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface ScrollRevealHeadingProps {
   text: string;
@@ -19,10 +19,14 @@ export const ScrollRevealHeading: React.FC<ScrollRevealHeadingProps> = ({
   highlightWords = [],
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: '-10% 0px -10% 0px' });
+
+  // Link animation progress to scroll position
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start 0.95', 'start 0.6'], // animate as section enters viewport
+  });
 
   const words = text.split(' ');
-
   const Tag = tag;
 
   return (
@@ -33,19 +37,20 @@ export const ScrollRevealHeading: React.FC<ScrollRevealHeadingProps> = ({
             (h) => h.toLowerCase() === word.toLowerCase().replace(/[^a-z0-9]/g, '')
           );
 
+          // Each word gets a staggered slice of the scroll progress
+          const wordStart = (idx / words.length) * 0.6;
+          const wordEnd = wordStart + 0.4;
+          const wordOpacity = useTransform(scrollYProgress, [wordStart, wordEnd], [0, 1]);
+          const wordY = useTransform(scrollYProgress, [wordStart, wordEnd], [40, 0]);
+          const wordBlur = useTransform(scrollYProgress, [wordStart, wordEnd], [6, 0]);
+
           return (
             <span key={idx} className="inline-block overflow-hidden py-1">
               <motion.span
-                initial={{ y: '110%', opacity: 0, filter: 'blur(10px)' }}
-                animate={
-                  isInView
-                    ? { y: '0%', opacity: 1, filter: 'blur(0px)' }
-                    : { y: '110%', opacity: 0, filter: 'blur(10px)' }
-                }
-                transition={{
-                  duration: 0.85,
-                  delay: delay + idx * 0.05,
-                  ease: [0.16, 1, 0.3, 1], // Luxury cubic-bezier spring curve
+                style={{
+                  opacity: wordOpacity,
+                  y: wordY,
+                  filter: useTransform(wordBlur, (v) => `blur(${v}px)`),
                 }}
                 className={`inline-block transform-gpu ${
                   isHighlight
