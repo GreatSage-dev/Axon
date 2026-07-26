@@ -3,6 +3,7 @@ import { Agent, PresetPrompt } from '@/types';
 export const INITIAL_AGENTS: Agent[] = [
   {
     id: 'agent-strategy',
+    okxAgentId: 'OKX-AGENT-195-001',
     name: 'Nexus Strategy Architect',
     role: 'Principal Business & Product Strategist',
     category: 'Strategy',
@@ -23,6 +24,7 @@ export const INITIAL_AGENTS: Agent[] = [
   },
   {
     id: 'agent-designer',
+    okxAgentId: 'OKX-AGENT-195-002',
     name: 'Aura Visual Systems Designer',
     role: 'Senior UI/UX & Brand Systems Designer',
     category: 'Design',
@@ -43,6 +45,7 @@ export const INITIAL_AGENTS: Agent[] = [
   },
   {
     id: 'agent-engineer',
+    okxAgentId: 'OKX-AGENT-195-003',
     name: 'CyberCode Systems Engineer',
     role: 'Staff Full-Stack & Infrastructure Engineer',
     category: 'Engineering',
@@ -63,6 +66,7 @@ export const INITIAL_AGENTS: Agent[] = [
   },
   {
     id: 'agent-web3',
+    okxAgentId: 'OKX-AGENT-195-004',
     name: 'X-Auditor Web3 & Attestation Engine',
     role: 'OKX X Layer & Smart Contract Specialist',
     category: 'Web3',
@@ -83,6 +87,7 @@ export const INITIAL_AGENTS: Agent[] = [
   },
   {
     id: 'agent-writer',
+    okxAgentId: 'OKX-AGENT-195-005',
     name: 'Lexicon Technical Writer',
     role: 'Senior API & Technical Documentation Specialist',
     category: 'Writing',

@@ -68,7 +68,14 @@ export const AgentCard: React.FC<AgentCardProps> = ({ agent, isActive = false, i
                   />
                 )}
               </h4>
-              <p className="text-[11px] text-slate-500 font-mono">{agent.role}</p>
+              <p className="text-[11px] text-slate-400 flex items-center gap-2 mt-0.5 flex-wrap">
+                <span>{agent.role}</span>
+                {agent.okxAgentId && (
+                  <span className="px-2 py-0.5 rounded-md font-mono text-[9px] font-bold bg-axon-violet-500/15 text-axon-violet-300 border border-axon-violet-500/30">
+                    {agent.okxAgentId}
+                  </span>
+                )}
+              </p>
             </div>
           </div>
 

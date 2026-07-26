@@ -31,6 +31,7 @@ export interface Agent {
   metrics: AgentMetric;
   color: string;
   iconName: string;
+  okxAgentId?: string;
 }
 
 export interface Artifact {
