@@ -1,0 +1,128 @@
+import { Agent, PresetPrompt } from '@/types';
+
+export const INITIAL_AGENTS: Agent[] = [
+  {
+    id: 'agent-strategy',
+    name: 'Nexus Strategy Architect',
+    role: 'Principal Business & Product Strategist',
+    category: 'Strategy',
+    description: 'Deconstructs broad objectives into structured execution specs, user personas, & monetization roadmaps.',
+    capabilities: ['request_classification', 'task_decomposition', 'market_validation', 'workflow_scoping'],
+    modelProvider: 'OKX AI',
+    modelName: 'axon-reasoning-v1',
+    systemPrompt: 'You are Nexus Strategy Architect. Your duty is to analyze high-level user requests and create an actionable execution blueprint with clear scope boundaries.',
+    status: 'IDLE',
+    color: '#a855f7', // Electric Violet
+    iconName: 'BrainCircuit',
+    metrics: {
+      totalTasksCompleted: 142,
+      handoffCount: 128,
+      avgExecutionTimeMs: 820,
+      successRate: 99.4,
+    },
+  },
+  {
+    id: 'agent-designer',
+    name: 'Aura Visual Systems Designer',
+    role: 'Senior UI/UX & Brand Systems Designer',
+    category: 'Design',
+    description: 'Translates functional scope into modern design tokens, component hierarchies, dark-mode glass palettes, and motion specs.',
+    capabilities: ['design_system_generation', 'color_token_mapping', 'component_spec', 'motion_design'],
+    modelProvider: 'Anthropic',
+    modelName: 'claude-3-5-sonnet-20241022',
+    systemPrompt: 'You are Aura Visual Systems Designer. You specify high-end UI design systems, dark void glass themes, glowing accent blading, and motion physics.',
+    status: 'IDLE',
+    color: '#e879f9', // Neon Magenta
+    iconName: 'Palette',
+    metrics: {
+      totalTasksCompleted: 98,
+      handoffCount: 92,
+      avgExecutionTimeMs: 1100,
+      successRate: 98.9,
+    },
+  },
+  {
+    id: 'agent-engineer',
+    name: 'CyberCode Systems Engineer',
+    role: 'Staff Full-Stack & Infrastructure Engineer',
+    category: 'Engineering',
+    description: 'Produces modular production-grade code, REST/GraphQL schemas, database migrations, and robust state machine code.',
+    capabilities: ['fullstack_code_generation', 'api_schema_design', 'database_modeling', 'state_machine_impl'],
+    modelProvider: 'OpenAI',
+    modelName: 'gpt-4o-2024-08-06',
+    systemPrompt: 'You are CyberCode Systems Engineer. You write clean, scalable TypeScript/Python code, backend routes, and verified state machines.',
+    status: 'IDLE',
+    color: '#38bdf8', // Neon Cyan
+    iconName: 'Code2',
+    metrics: {
+      totalTasksCompleted: 215,
+      handoffCount: 184,
+      avgExecutionTimeMs: 1450,
+      successRate: 99.8,
+    },
+  },
+  {
+    id: 'agent-web3',
+    name: 'X-Auditor Web3 & Attestation Engine',
+    role: 'OKX X Layer & Smart Contract Specialist',
+    category: 'Web3',
+    description: 'Generates on-chain cryptographic state attestations, hashes ContextPackets to X Layer L2, and handles agent fee rails.',
+    capabilities: ['onchain_attestation', 'smart_contract_audit', 'xlayer_integration', 'context_hashing'],
+    modelProvider: 'OKX AI',
+    modelName: 'xlayer-attestation-v2',
+    systemPrompt: 'You are X-Auditor. You compute keccak256 hashes of ContextPackets and anchor execution proofs onto OKX X Layer.',
+    status: 'IDLE',
+    color: '#10b981', // Emerald Glow
+    iconName: 'ShieldCheck',
+    metrics: {
+      totalTasksCompleted: 76,
+      handoffCount: 76,
+      avgExecutionTimeMs: 650,
+      successRate: 100.0,
+    },
+  },
+  {
+    id: 'agent-writer',
+    name: 'Lexicon Technical Writer',
+    role: 'Senior API & Technical Documentation Specialist',
+    category: 'Writing',
+    description: 'Synthesizes all completed agent artifacts into comprehensive developer docs, walkthrough guides, and OpenAPI specs.',
+    capabilities: ['technical_documentation', 'openapi_spec', 'architecture_diagramming', 'summary_synthesis'],
+    modelProvider: 'Groq',
+    modelName: 'llama-3.3-70b-versatile',
+    systemPrompt: 'You are Lexicon Technical Writer. You build clear, beautiful technical documentation, walkthroughs, and API specifications.',
+    status: 'IDLE',
+    color: '#f59e0b', // Amber Glow
+    iconName: 'FileText',
+    metrics: {
+      totalTasksCompleted: 112,
+      handoffCount: 96,
+      avgExecutionTimeMs: 740,
+      successRate: 99.1,
+    },
+  },
+];
+
+export const PRESET_PROMPTS: PresetPrompt[] = [
+  {
+    id: 'preset-fintech',
+    title: 'Launch a High-Yield Web3 Fintech Platform',
+    category: 'Full-Stack Product',
+    prompt: 'Build a fintech platform for automated yield farming on OKX X Layer. Include business strategy, dark violet UI design system, smart contract audit hooks, and developer docs.',
+    expectedAgents: ['Nexus Strategy Architect', 'Aura Visual Systems Designer', 'CyberCode Systems Engineer', 'X-Auditor Web3 & Attestation Engine', 'Lexicon Technical Writer'],
+  },
+  {
+    id: 'preset-agent-marketplace',
+    title: 'Autonomous AI Agent Marketplace',
+    category: 'AI Infrastructure',
+    prompt: 'Design an agent discovery and context-sharing marketplace where autonomous bots rent specialized capabilities using OKX Web3 micropayments.',
+    expectedAgents: ['Nexus Strategy Architect', 'CyberCode Systems Engineer', 'X-Auditor Web3 & Attestation Engine', 'Lexicon Technical Writer'],
+  },
+  {
+    id: 'preset-audit',
+    title: 'Multi-Agent Smart Contract Security Pipeline',
+    category: 'Web3 Security',
+    prompt: 'Execute a security scan on a cross-chain liquidity bridge contract, verify bytecodes, generate ContextPackets for vuln fixes, and attest report on X Layer.',
+    expectedAgents: ['CyberCode Systems Engineer', 'X-Auditor Web3 & Attestation Engine', 'Lexicon Technical Writer'],
+  },
+];
