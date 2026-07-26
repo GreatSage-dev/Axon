@@ -4,10 +4,10 @@ import { AxonOrchestrator } from '@/engine/orchestrator';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { objective } = body;
+    const objective = body.objective || body.userObjective || body.prompt;
 
     if (!objective) {
-      return NextResponse.json({ error: 'Missing required field: objective' }, { status: 400 });
+      return NextResponse.json({ error: 'Missing required field: objective, userObjective, or prompt' }, { status: 400 });
     }
 
     const workflow = AxonOrchestrator.createWorkflow(objective);
