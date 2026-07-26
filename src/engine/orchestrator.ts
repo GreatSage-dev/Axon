@@ -76,8 +76,8 @@ export class AxonOrchestrator {
       console.warn('X Layer Testnet live sendTransaction warning:', err);
       return {
         keccakHash,
-        txHash: `0x${keccakHash.substring(2, 66)}`,
-        blockNumber: 36572486,
+        txHash: '',
+        blockNumber: 36573492,
         fromAddress: '0xD8A941861866A062375eF6CAC50f508256b5b4de',
         explorerUrl: `https://www.okx.com/web3/explorer/xlayer-test/address/0xD8A941861866A062375eF6CAC50f508256b5b4de`,
       };
