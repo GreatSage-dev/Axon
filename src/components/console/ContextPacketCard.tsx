@@ -23,9 +23,10 @@ export const ContextPacketCard: React.FC<ContextPacketCardProps> = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
+      layout
+      initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      transition={{ delay: index * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ delay: index * 0.05, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="group relative mb-5 edge-glow"
     >
       {/* Outer glow border */}

@@ -14,10 +14,10 @@ interface AgentCardProps {
 export const AgentCard: React.FC<AgentCardProps> = ({ agent, isActive = false, index = 0 }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+      initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      transition={{ delay: 0.08 * index, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -8, transition: { duration: 0.25, type: 'spring', stiffness: 300 } }}
+      transition={{ delay: 0.05 * index, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -6, scale: 1.01, transition: { type: 'spring', mass: 0.5, stiffness: 140, damping: 16 } }}
       className="group relative edge-glow"
     >
       {/* Hover glow border */}

@@ -72,9 +72,10 @@ export const ExecutionTimeline: React.FC<ExecutionTimelineProps> = ({ timeline }
               return (
                 <motion.div
                   key={evt.id}
-                  initial={{ opacity: 0, x: -15 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.04, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  layout
+                  initial={{ opacity: 0, x: -12, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  transition={{ delay: Math.min(idx * 0.03, 0.3), duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                   className="relative group py-3"
                 >
                   <div className={`absolute -left-[14px] top-4 w-3 h-3 rounded-full ${style.dot} ring-4 ring-axon-bg/90 z-10 transition-transform group-hover:scale-125`} />

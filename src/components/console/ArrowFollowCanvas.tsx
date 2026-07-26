@@ -45,8 +45,8 @@ export const ArrowFollowCanvas: React.FC<ArrowFollowCanvasProps> = ({
 
   const rawX = useMotionValue(-1000);
   const rawY = useMotionValue(-1000);
-  const cursorX = useSpring(rawX, { stiffness: 200, damping: 20 });
-  const cursorY = useSpring(rawY, { stiffness: 200, damping: 20 });
+  const cursorX = useSpring(rawX, { stiffness: 120, damping: 18, mass: 0.5 });
+  const cursorY = useSpring(rawY, { stiffness: 120, damping: 18, mass: 0.5 });
 
   useEffect(() => {
     if (!containerRef.current) return;
